@@ -33,28 +33,13 @@ export function registerTools(server: McpServer) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
 
-      const data = (await response.json()) as {
-        id: string
-        symbol: string
-        name: string
-        web_slug: string
-        platforms: Record<string, string>
-      }
+      const data = await response.json()
       try {
-        // Extract only the required fields
-        const filteredData = {
-          id: data.id,
-          symbol: data.symbol,
-          name: data.name,
-          web_slug: data.web_slug,
-          platforms: data.platforms,
-        }
-
         return {
           content: [
             {
               type: 'text',
-              text: JSON.stringify(filteredData, null, 2),
+              text: JSON.stringify(data, null, 2),
             },
           ],
         }
@@ -102,12 +87,26 @@ export function registerTools(server: McpServer) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
 
-        const data = await response.json()
+        const data = (await response.json()) as {
+          id: string
+          symbol: string
+          name: string
+          web_slug: string
+          platforms: Record<string, string>
+        }
+        // Extract only the required fields
+        const filteredData = {
+          id: data.id,
+          symbol: data.symbol,
+          name: data.name,
+          web_slug: data.web_slug,
+          platforms: data.platforms,
+        }
         return {
           content: [
             {
               type: 'text',
-              text: JSON.stringify(data, null, 2),
+              text: JSON.stringify(filteredData, null, 2),
             },
           ],
         }
