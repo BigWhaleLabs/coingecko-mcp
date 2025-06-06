@@ -10,7 +10,7 @@ export function registerTools(server: McpServer) {
 
   server.tool(
     'search_coingecko_id',
-    'Search for a CoinGecko ID by token name or symbol, if you already know the ID, use get_coin_data_by_coingecko_id',
+    'Search for a CoinGecko ID by token symbol.',
     {
       query: z
         .string()
