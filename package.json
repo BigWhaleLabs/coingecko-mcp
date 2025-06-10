@@ -12,6 +12,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@coingecko/coingecko-mcp": "^1.2.0",
     "@modelcontextprotocol/sdk": "^1.12.1",
     "express": "^5.1.0",
     "morgan": "^1.10.0"

@@ -3,7 +3,9 @@ import morgan from 'morgan'
 import { randomUUID } from 'node:crypto'
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js'
 import { isInitializeRequest } from '@modelcontextprotocol/sdk/types.js'
-import startServer from './src/server.js'
+import { server, endpoints, init } from '@coingecko/coingecko-mcp/server'
+
+init({ server, endpoints })
 
 const app = express()
 app.use(express.json())
@@ -55,9 +57,6 @@ app.post('/mcp', async (req, res) => {
         delete transports[transport.sessionId]
       }
     }
-
-    // Use the existing server setup from server.js
-    const server = await startServer()
 
     // Connect to the MCP server
     await server.connect(transport)
